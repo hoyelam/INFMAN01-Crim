@@ -10,20 +10,33 @@ function initMap() {
         zoom: 11,
         styles: [{
             featureType: 'poi',
-            stylers: [{ visibility: 'off' }]  // Turn off points of interest.
+            stylers: [{visibility: 'off'}]  // Turn off points of interest.
         }, {
             featureType: 'transit.station',
-            stylers: [{ visibility: 'off' }]  // Turn off bus stations, train stations, etc.
+            stylers: [{visibility: 'off'}]  // Turn off bus stations, train stations, etc.
         }],
         disableDoubleClickZoom: true
     });
 
-    $.ajax({
-        dataType: "json",
-    });
+    var jqxhr = $.getJSON("json/data.json", function () {
+            console.log("success");
+        })
+        .done(function () {
+            console.log("second success");
+        })
+        .fail(function () {
+            console.log("error");
+        })
+        .always(function () {
+            console.log("complete");
+        });
 
-    $.getJSON("json/data.json"), function(json){
-        console.log(json)
-    }
+// Perform other work here ...
+
+// Set another completion function for the request above
+    jqxhr.complete(function () {
+        console.log("second complete");
+        console.log(jqxhr);
+    });
 }
 
