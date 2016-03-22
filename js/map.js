@@ -1,6 +1,7 @@
 /**
  * Created by tjardavoorn on 17/03/16.
  */
+
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
 
@@ -17,5 +18,12 @@ function initMap() {
         disableDoubleClickZoom: true
     });
 
-    var firebase = new Firebase("https://flickering-inferno-2886.firebaseio.com");
+    $.ajax({
+        dataType: "json",
+    });
+
+    $.getJSON("json/data.json"), function(json){
+        console.log(json)
+    }
 }
+
