@@ -1,10 +1,12 @@
 /**
- * Created by tjardavoorn on 15/03/16.
+ * Created by tjardavoorn on 17/03/16.
  */
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
-        center: {lat: 0, lng: 0},
-        zoom: 3,
+
+        // location Rotterdam
+        center: {lat: 51.9166667, lng: 4.5},
+        zoom: 11,
         styles: [{
             featureType: 'poi',
             stylers: [{ visibility: 'off' }]  // Turn off points of interest.
