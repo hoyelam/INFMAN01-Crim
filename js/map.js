@@ -17,7 +17,37 @@ function initMap() {
         }],
         disableDoubleClickZoom: true
     });
+
+    $.ajax({
+        url: 'json/fietsendiefstaldata.json',
+        dataType: 'json',
+        type: 'get',
+        cache: false,
+        success: function (data){
+            $(data.fietsendiefstal).each(function( index, value){
+
+                if (index<500) {
+                    setInterval(function(){
+                        $.getJSON("http://maps.googleapis.com/maps/api/geocode/json?address=" + value.Straat + "," + value.Plaats, function (json) {
+                            var long = json.results[0].geometry.location.lng;
+                            var lat = json.results[0].geometry.location.lat;
+
+                            marker = new google.maps.Marker({
+                                map: map,
+                                draggable: true,
+                                animation: google.maps.Animation.DROP,
+                                position: {lat: lat, lng: long}
+                            });
+                        });
+
+                    }, 100);
+                }
+            });
+        }
+    });
+    //marker.addListener('click', toggleBounce);
 }
+
 
 
 
