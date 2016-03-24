@@ -17,8 +17,27 @@ function initMap() {
         }],
         disableDoubleClickZoom: true
     });
+}
 
-    var jqxhr = $.getJSON("json/data.json", function () {
+
+
+/*
+    $(document).ready(function() {
+        var myItems;
+
+        $.getJSON("json/fietsendiefstaldata.json", function(data) {
+            myItems = data.Fietsendiefstal;
+            console.log(myItems);
+        });
+    });
+
+    $.each(data.Fietsendiefstal, function(key, val) {
+        alert(val.MK);
+        alert(val.Poging);
+    });
+
+/*
+    var jqxhr = $.getJSON("json/fietsendiefstaldata.json", function () {
             console.log("success");
         })
         .done(function () {
@@ -40,3 +59,4 @@ function initMap() {
     });
 }
 
+*/
