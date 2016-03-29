@@ -26,8 +26,7 @@ function initMap() {
         success: function (data){
             $(data.fietsendiefstal).each(function( index, value){
 
-                if (index<500) {
-                    setInterval(function(){
+                if (index < 200) {
                         $.getJSON("http://maps.googleapis.com/maps/api/geocode/json?address=" + value.Straat + "," + value.Plaats, function (json) {
                             var long = json.results[0].geometry.location.lng;
                             var lat = json.results[0].geometry.location.lat;
@@ -40,7 +39,9 @@ function initMap() {
                             });
                         });
 
-                    }, 100);
+                }
+                if(index == 200){
+                    return false
                 }
             });
         }
