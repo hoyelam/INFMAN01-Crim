@@ -2,6 +2,8 @@
  * Created by tjardavoorn on 17/03/16.
  */
 
+var test = false;
+var getAantal = 0;
 function initMap() {
     var map = new google.maps.Map(document.getElementById('map'), {
 
@@ -22,10 +24,13 @@ function initMap() {
     heatmap = new google.maps.visualization.HeatmapLayer({
         map: map,
         data: [],
-        radius: 20
+        radius: 40
     });
 
-    getMarkers(heatmap);
+    if (test == false ) {
+        getMarkers(heatmap);
+    }
+
     //marker.addListener('click', toggleBounce);
 }
 
@@ -37,18 +42,23 @@ function getMarkers(heatmap) {
         cache: false,
         success: function (data){
             $(data.fietsendiefstal).each(function( index, value){
-                if (index < 100) {
-                    $.getJSON("http://maps.googleapis.com/maps/api/geocode/json?address=" + value.Straat + "," + value.Plaats, function (json) {
-                        console.log(json);
-                        var long = json.results[0].geometry.location.lng;
-                        var lat = json.results[0].geometry.location.lat;
-                        var latLng = new google.maps.LatLng(lat, long);
-                        heatmap.getData().push(latLng);
-                    });
-                }
-                if(index == 100){
-                    return false
-                }
+                setInterval(function() {
+                    if (index < 200) {
+                        if (test == false) {
+                            $.getJSON("http://maps.googleapis.com/maps/api/geocode/json?address=" + value.Straat + "," + value.Plaats, function (json) {
+                                console.log(json);
+                                var long = json.results[0].geometry.location.lng;
+                                var lat = json.results[0].geometry.location.lat;
+                                var latLng = new google.maps.LatLng(lat, long);
+                                heatmap.getData().push(latLng);
+                            });
+                        }
+                    }
+                    if(index == 200){
+                        test = true;
+                        return false
+                    }
+                }, 100);
             });
         }
     });
